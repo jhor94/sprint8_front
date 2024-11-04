@@ -1,0 +1,22 @@
+.container{
+    min-width: fit-content;
+}
+
+.title{
+    display: flex;
+    margin-top: 20px;
+    justify-content: space-between;
+}
+
+.title button{
+    background-color: rgb(26,99,99);
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-info{
+    background-color: rgb(26,99,99);
+    color: white;
+    border-color: transparent;
+}
