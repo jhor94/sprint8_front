@@ -1,3 +1,6 @@
+@if(loading){
+  <app-progress-bar></app-progress-bar>
+}@else{
 <div class="container ms-auto">
     <div class="title">
         <h2 class="">Crud de Personas</h2>
@@ -28,10 +31,15 @@
             <td>{{crud.hobby}}</td>
             <td>
               <button type="button" class="btn btn-info btn-sm" [routerLink]="['/editar', crud.id]">Editar </button>
-              <button type="button" class="btn btn-secondary btn-sm ms-2" [routerLink]="['/editar', crud.id]">Borrar </button>
+              <button type="button"  (click)="borrarPersona(crud.id!)" class="btn btn-secondary btn-sm ms-2">Borrar </button>
             </td>
           </tr>
     }
     </tbody>
   </table>
+
+  <div>
+    <button class="" (click)="getListaCrud()">Imprimir api back</button>
+  </div>
 </div>
+}
