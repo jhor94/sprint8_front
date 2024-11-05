@@ -26,4 +26,16 @@ export class PersonasService {
     return this.httpCliente.delete<void>(`${this.backUrl}${this.apiUrl}${id}`)
   }
 
+  saveCrud(persona: Crud): Observable<void>{
+    return this.httpCliente.post<void>(`${this.backUrl}${this.apiUrl}`, persona)
+  }
+
+  getPersona(id:number):Observable<Crud>{
+    return this.httpCliente.get<Crud>(`${this.backUrl}${this.apiUrl}${id}`)
+  }
+
+  updateCrud(id:number, persona:Crud):Observable<void>{
+    return this.httpCliente.put<void>(`${this.backUrl}${this.apiUrl}${id}`, persona)
+  }
+
 }

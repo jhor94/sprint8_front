@@ -1,51 +1,57 @@
-<div class="row mt-5">
-    <div class="col-lg-4 offset-lg-4">
-        <div class="card text-white mb-3 w-100">
-            <div class="card-header text-center">Agregar Persona</div>
-            <div class="card-body">
-                <form action="" [formGroup]="formAgregar" (ngSubmit)="agregarPersona()">
-                    <input type="text" class="form-control" placeholder="Ingrese nombre" formControlName="nombre"> 
-                    @if(formAgregar.get('nombre')?.hasError('required') && formAgregar.get('nombre')?.touched){
+@if(loading){
+    <app-progress-bar></app-progress-bar>
+}@else {
+    <div class="row mt-5">
+        <div class="col-lg-4 offset-lg-4">
+            <div class="card text-white mb-3 w-100">
+                <div class="card-header text-center">{{Operacion}} Persona</div>
+                <div class="card-body">
+                    <form action="" [formGroup]="formAgregar" (ngSubmit)="agregarPersona()">
+                        <input type="text" class="form-control" placeholder="Ingrese nombre" formControlName="nombre">
+                        @if(formAgregar.get('nombre')?.hasError('required') && formAgregar.get('nombre')?.touched){
                         <small class="text-danger"> *El campo nombre es requerido</small>
-                    }
-                    <input type="text" class="form-control mt-3" placeholder="Ingrese Apellido" formControlName="apellido">
-                    @if(formAgregar.get('apellido')?.hasError('required') && formAgregar.get('apellido')?.touched){
+                        }
+                        <input type="text" class="form-control mt-3" placeholder="Ingrese Apellido"
+                            formControlName="apellido">
+                        @if(formAgregar.get('apellido')?.hasError('required') && formAgregar.get('apellido')?.touched){
                         <small class="text-danger"> *El campo apellido es requerido</small>
-                    }
-                    <input type="email" class="form-control mt-3" placeholder="Ingrese Email" formControlName="email">
-                    @if(formAgregar.get('email')?.hasError('required') && formAgregar.get('email')?.touched){
+                        }
+                        <input type="email" class="form-control mt-3" placeholder="Ingrese Email" formControlName="email">
+                        @if(formAgregar.get('email')?.hasError('required') && formAgregar.get('email')?.touched){
                         <small class="text-danger"> *El campo nombre es requerido</small>
-                    }
-                    @if(formAgregar.get('email')?.hasError('email')){
+                        }
+                        @if(formAgregar.get('email')?.hasError('email')){
                         <small class="text-danger"> *El campo email debe ser un correo electrónico válido</small>
-                    }
-                    <input type="text" class="form-control mt-3" placeholder="Ingrese teléfono" formControlName="telefono">
-                    @if(formAgregar.get('telefono')?.hasError('required') && formAgregar.get('telefono')?.touched){
+                        }
+                        <input type="text" class="form-control mt-3" placeholder="Ingrese teléfono"
+                            formControlName="telefono">
+                        @if(formAgregar.get('telefono')?.hasError('required') && formAgregar.get('telefono')?.touched){
                         <small class="text-danger"> *El campo telefono es requerido</small>
-                    }
-                    <input type="text" class="form-control mt-3" placeholder="Ingrese Localización" formControlName="localizacion">
-                    @if(formAgregar.get('localizacion')?.hasError('required') && formAgregar.get('localizacion')?.touched){
+                        }
+                        <input type="text" class="form-control mt-3" placeholder="Ingrese Localización"
+                            formControlName="localizacion">
+                        @if(formAgregar.get('localizacion')?.hasError('required') &&
+                        formAgregar.get('localizacion')?.touched){
                         <small class="text-danger"> *El campo localizacion es requerido</small>
-                    }
-                    <input type="text" class="form-control mt-3" placeholder="Ingrese Hobby" formControlName="hobby">
-                    @if(formAgregar.get('hobby')?.hasError('required') && formAgregar.get('hobby')?.touched){
+                        }
+                        <input type="text" class="form-control mt-3" placeholder="Ingrese Hobby" formControlName="hobby">
+                        @if(formAgregar.get('hobby')?.hasError('required') && formAgregar.get('hobby')?.touched){
                         <small class="text-danger"> *El campo hobby es requerido</small>
-                    }
-                    <div class="row mt-3 text-center">
-                        <div class="col-lg-6 mt-2">
-                            <button type="button" class="btn btn-dark" [routerLink]="['/personas']" >Volver</button>
-                           </div>
-                        <div class="col-lg-6 mt-2">
-                            <button type="submit" class="btn btn-light">Aceptar</button>
+                        }
+                        <div class="row mt-3 text-center">
+                            <div class="col-lg-6 mt-2">
+                                <button type="button" class="btn btn-dark" [routerLink]="['/personas']">Volver</button>
+                            </div>
+                            <div class="col-lg-6 mt-2">
+                                <button type="submit" class="btn btn-light">Aceptar</button>
+                            </div>
+    
                         </div>
-                       
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
-          </div>
+        </div>
     </div>
-</div>
+}
 
 
-  
- 
