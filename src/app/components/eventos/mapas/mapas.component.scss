@@ -1,0 +1,51 @@
+#map{
+    height: 50vh;
+    width: 100%;
+    position: relative;
+}
+
+#cards-container{
+    overflow-y: auto;
+    max-height: 50vh;
+    margin-top: 10px;
+    cursor: pointer;
+
+}
+
+h3 , p {
+    color: rgb (26,99,99)
+}
+
+.card{
+    width: 100%;
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.card-body{
+    align-items: justify;
+    display: block;
+    position: relative;
+    transition: none;
+
+}
+
+#card-container :hover{
+    transform: translateY(-5px);
+
+}
+
+.card active{
+
+    box-shadow: none;
+
+}
+
+.card-title{
+    position: relative;
+    display: block;
+    font-size: 20px
+}
+

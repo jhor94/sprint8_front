@@ -1,12 +1,14 @@
 @if(loading){
-<app-progress-bar></app-progress-bar>
+  <div>
+    <app-progress-bar></app-progress-bar>
+  </div>
 }@else{
 <div class="container ms-auto">
   <div class="title">
     <h2 class="">Crud de Personas</h2>
     <button class="btn btn-primary" [routerLink]="['/agregar']">AGREGAR PERSONAS</button>
   </div>
-  <div class="container-table">
+  <div class="container-table mt-3">
     @if(listaCrud.length > 0 ){
     <table class="table table-hover ">
       <thead>
