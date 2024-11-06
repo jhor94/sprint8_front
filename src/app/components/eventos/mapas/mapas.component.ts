@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { LocalizacionService } from '../../../services/localizaciones/localizacion.service';
+import { Localizaciones } from '../../../interfaces/localizaciones';
 
 @Component({
   selector: 'app-mapas',
@@ -7,6 +9,22 @@ import { Component } from '@angular/core';
   templateUrl: './mapas.component.html',
   styleUrl: './mapas.component.scss'
 })
-export class MapasComponent {
+export class MapasComponent implements OnInit {
+
+  localizacionServicio = inject(LocalizacionService)
+  listaLocalizaciones: Localizaciones[] = []
+
+  ngOnInit(): void {
+    this.getListaLocalizaciones()
+  }
+
+  getListaLocalizaciones()
+{
+  this.localizacionServicio.getLocalizaciones().subscribe((data: Localizaciones[])=>{
+    this.listaLocalizaciones = data
+    console.log(this.listaLocalizaciones)
+  })
+}
+
 
 }
