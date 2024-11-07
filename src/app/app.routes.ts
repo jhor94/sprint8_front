@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home/home.component';
 import { MapasComponent } from './components/eventos/mapas/mapas.component';
-import { GraficosComponent } from './components/eventos/graficos/graficos.component';
 import { CalendarioComponent } from './components/eventos/calendario/calendario.component';
 import { PersonasComponent } from './components/personas/personas.component';
 import { AgregarEditarComponent } from './components/agregar-Editar/agregar-editar/agregar-editar.component';
+import { GraficosComponent } from './components/graficos/graficos/graficos.component';
 
 
 export const routes: Routes = [

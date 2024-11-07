@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, OnInit, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarOptions, EventInput, DateSelectArg, EventClickArg, EventApi } from '@fullcalendar/core/index.js';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -18,7 +17,7 @@ import * as bootstrap from 'bootstrap'
 @Component({
   selector: 'app-calendario',
   standalone: true,
-  imports: [FullCalendarModule, CommonModule, RouterOutlet],
+  imports: [FullCalendarModule, CommonModule],
   templateUrl: './calendario.component.html',
   styleUrl: './calendario.component.scss',
 })

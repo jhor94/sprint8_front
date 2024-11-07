@@ -1,7 +1,19 @@
+<div class="container mt-3 text-center">
+  <div class="row mb-3">
+      <h1 class="text-center mb-3">{{title}}</h1>
+  </div>
+</div>
 <div class="container">
-<h2 class="text-center m-3">{{title}}</h2>
+  <div class="row">
+      <div class="col-md-12">
+          <p> Este calendario te permite gestionar tus eventos y reuniones de manera sencilla. Puedes agregar, editar o eliminar citas directamente en las fechas correspondientes, lo que te ayudará a organizar tu tiempo de forma eficiente. Además, podrás visualizar tus compromisos de manera clara y ordenada, asegurando que nunca pierdas una cita importante.</p>
+      </div>
+  </div>
 
-<full-calendar [options]="calendarOptions()" [events]="eventos"  [deepChangeDetection]="true"></full-calendar>
+<div class="calendar-container">
+  <full-calendar [options]="calendarOptions()" [events]="eventos"  [deepChangeDetection]="true"></full-calendar>
+</div>
+
 
 <!-- Modal para opciones de evento -->
 <div class="modal fade" id="eventoModal" tabindex="-1" aria-labelledby="eventoModalLabel" aria-hidden="true">
