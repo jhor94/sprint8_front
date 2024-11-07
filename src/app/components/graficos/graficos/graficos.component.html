@@ -12,16 +12,43 @@
     <div class="row">
         <div class="col-lg-6">
             <div class="card m-3">
-                <h2 class="card-title text-center"> Gráfico de lineas</h2>
-                <canvas id="chartLine">{{chartLine}}</canvas>
+                <div class="card-header">
+                    <h2 class="card-title text-center mt-2"> GRÁFICO LINEAL</h2>
+                </div>
+                <div class="card-body">
+                    <canvas id="chartLine">{{chartLine}}</canvas>
+                </div>
+               
             </div>
         </div>
         <div class="col-lg-6">
             <div class="card m-3">
-                <h2 class="card-title text-center"> Gráfico de barras</h2>
-                <canvas id="chartBar">{{chartBar}}</canvas>
+                <div class="card-header">
+                    <h2 class="card-title text-center mt-2"> GRÁFICO DE BARRAS</h2>
+                </div>
+                <div class="card-body">
+                    <canvas id="chartBar">{{chartBar}}</canvas>
+                </div>
+      
             </div>
         </div>
 
+    </div>
+
+
+
+</div>
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-lg-6">
+            <h2 class="text-center">Revisa los datos dinámicamente </h2>
+            <p class="text-center"> Podrás ver la evolución de las ventas y las devoluciones dinamicamente</p>
+        </div>
+        <div class="col-lg-6 text-center botones-grupo">
+            <button class="btn btn-primary m-2" (click)="fieldChange('ventas')">Ventas</button>
+            <button class="btn btn-secondary m-2" (click)="fieldChange('unidades_vendidas')">Unidades vendidas</button>
+            <button class="btn btn-info m-2" (click)="fieldChange('ingresos_devoluciones')">Devoluciones</button>
+        </div>
+        
     </div>
 </div>

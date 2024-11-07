@@ -1,6 +1,8 @@
 import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
 import { options } from '@fullcalendar/core/preact.js';
 import { Chart, ChartType, plugins } from 'chart.js/auto';
+import { VentasService } from '../../../services/ventas/ventas.service';
+import { Venta } from '../../../interfaces/ventas';
 
 @Component({
   selector: 'app-graficos',
@@ -13,22 +15,60 @@ export class GraficosComponent implements AfterViewInit {
 
   public chartLine!: Chart;
   public chartBar!: Chart;
+  ventas!: Venta
 
+  public field: 'ventas' | 'unidades_vendidas' | 'devoluciones' | 'ingresos_devoluciones' = 'ventas';
 
   ngAfterViewInit(): void {
-    this.lineChart()
-    this.barChart()
-    this.cdr.detectChanges()
+
+  this.conexionVentas()
 
   }
 
-  constructor(private cdr: ChangeDetectorRef) { }
-  lineChart() {
+  constructor(private cdr: ChangeDetectorRef, private ventasService: VentasService) { }
+
+  conexionVentas(){
+    this.ventasService.getVentas().subscribe((ventas) => {
+      this.lineChart(ventas)
+      this.barChart(ventas)
+      this.cdr.detectChanges()
+    })
+  }
+
+  fieldChange(newField: 'ventas' | 'unidades_vendidas' | 'devoluciones'| 'ingresos_devoluciones'){
+    this.field = newField
+    this.ngAfterViewInit()
+  }
+
+  getMonthSales(ventas: Venta[]){
+    const salesByMonth = Array(12).fill(0)
+    const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+
+
+    ventas.forEach(venta =>{
+      const monthIndex = months.indexOf(venta.mes)
+      if(monthIndex !== 1){
+        salesByMonth[monthIndex] += venta[this.field]
+      }
+    });
+
+    return salesByMonth // modificamos el array de meses ajuntandolo con las ventas o devoluciones
+
+  }
+
+ 
+
+  lineChart(ventas:any[]) {
+
+    if(this.chartLine){
+      this.chartLine.destroy()
+    }
+
     const data = {
       labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
       datasets: [{
-        label: 'My First Dataset',
-        data: [65, 59, 80, 81, 56, 55, 40, 81, 56, 55, 40, 50],
+        label: this.field,
+        data: this.getMonthSales(ventas),
         fill: false,
         borderColor: 'rgb(26, 99, 99)',
         tension: 0.3,
@@ -59,12 +99,16 @@ export class GraficosComponent implements AfterViewInit {
     })
   }
 
-  barChart() {
+  barChart(ventas: any[]) {
+
+    if(this.chartBar){
+      this.chartBar.destroy()
+    }
     const data = {
       labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
       datasets: [{
-        label: 'My First Dataset',
-        data: [65, 59, 80, 81, 56, 55, 40],
+        label: this.field,
+        data: this.getMonthSales(ventas),
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(255, 159, 64, 0.2)',

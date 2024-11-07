@@ -4,11 +4,30 @@
     align-items: center;
 }
 
+h1{
+    font-size: 3rem;
+    font-weight: bold;
+    min-width: fit-content;
+}
+
 .card{
     margin: 1rem;
     padding: 1rem;
     background-color: rgb(232, 255, 255);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+.card:hover{
+    transform: scale(1.1);
+}
+
+h2{
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.card-header h2{
+    font-weight: bold;
 }
 
 .card-title {
@@ -19,4 +38,20 @@
 canvas{
     max-width: 100%;
     width: 1000px;
+}
+
+.botones-grupo{
+    min-width: fit-content;
+    text-align: center;
+    align-items: center;
+}
+
+.btn-primary{
+    background-color: rgb(26,99,99);
+
+}
+
+.btn-info{
+    background-color: black;
+    color: white;
 }
