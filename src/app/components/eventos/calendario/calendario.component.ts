@@ -7,6 +7,8 @@ import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from "@fullcalendar/list"
+import { CalendarioService } from '../../../services/calendarios/calendario.service';
+import { Eventos } from '../../../interfaces/eventos';
 
 
 
@@ -20,7 +22,7 @@ import listPlugin from "@fullcalendar/list"
 export class CalendarioComponent implements OnInit {
   title: string = 'Calendario de eventos';
 
-  events: EventInput[] = [
+  eventos: EventInput[] = [
     { title: 'Evento del trabajo', date: '2024-11-10' },
     { title: 'Evento del ocio', date: '2024-11-12' }
   ]
@@ -51,8 +53,32 @@ export class CalendarioComponent implements OnInit {
 
   currentEvents = signal<EventApi[]>([])
 
-  constructor(private changeDetector: ChangeDetectorRef){}
+  constructor(private changeDetector: ChangeDetectorRef, private calendarioService: CalendarioService){}
 
+  ngOnInit(): void {
+    this.loadEventos()
+
+  }
+
+    loadEventos(){
+
+      this.calendarioService.getEventos().subscribe((events) => {
+        
+        this.eventos = events.map((evento) => ({
+          id: evento.id?.toString(),
+          title: evento.titulo,
+          start: evento.inicio,
+          end: evento.fin,
+          description: evento.descripcion,
+
+    }));
+    this.calendarOptions.update(options =>({
+      ...options,
+      events:this.eventos
+    }))
+    })
+    }
+  
   handleCalendarToogle(){
     this.calendarVisible.update((bool) => !bool);
   }
@@ -66,19 +92,36 @@ export class CalendarioComponent implements OnInit {
 
   handleDateClick(selectInfo:DateSelectArg) {
     const title = prompt ('Introduce el titulo del evento');
+    const description = prompt ('Introduce una pequeña descripcion del evento') ?? ''; //asigna campo vacio en el caso que sea nulo
+    const finEventStr = prompt ('Introduce la fecha de finalizacion en formado (yyy-mm-dd)') ?? ''; //asigna campo vacio en el caso que sea nulo
+    const finEvent = new Date(finEventStr)
     const calendarApi = selectInfo.view.calendar
-
     calendarApi.unselect();
 
     if(title){
+     const nuevoEvento: Eventos = {
+      titulo: title,
+      inicio: new Date(selectInfo.startStr),
+      fin: finEvent,
+      descripcion: description,
+      creado_en: new Date(),
+      actualizado_en: new Date()
+     };
+     this.calendarioService.guardarEvento(nuevoEvento).subscribe((evento) => {
+      this.loadEventos()
       calendarApi.addEvent({
-      id:String(Date.now()),
-      title,
-      start:selectInfo.startStr,
-      end:selectInfo.endStr,
-      allDay: selectInfo.allDay
-    });
+        id: evento.id?.toString(),
+        title: evento.titulo,
+        start: evento.inicio,
+        end: evento.fin,
+        description: evento.descripcion,
+      })
+     })
+     
   }
+
+
+
 }
 
 handleEventClick(clickInfo: EventClickArg) {
@@ -92,9 +135,7 @@ handleEvents(){
 
 }
 
-  ngOnInit(): void {
 
-  }
 
  
 
