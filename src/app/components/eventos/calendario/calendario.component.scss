@@ -1,16 +1,212 @@
-.calendar-container{
-    margin-top: 10px;
-}
-full-calendar{
+.container-app {
+    display: flex;
+    min-height: 100%;
+    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+    font-size: 14px;
+    flex-wrap: wrap;
+    min-width: fit-content;
+  }
+
+.side-bar {
+    max-width: 400px;
     width: 100%;
-    height: 700px;
+    line-height: 1.5;
+    background: #eaf9ff;
+    border-right: 1px solid #d3e2e8;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-align: justify;
+  }
+
+.title{
+   font-weight: bold;
+  }
+
+  .side-bar-main {
+    flex-grow: 1;
+    padding: 3em;
+    display: flex;
+    min-width: fit-content;
+  }
+
+  .fc-theme-standard {
+    border: 1px solid #000000; /* Cambia el color del borde */
+  }
+
+  .card{
+    width: 800px;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+    margin: 10px;
+    background-color: transparent;
+    display: flex;
+  }
+
+  
+  .card-container full-calendar {
+    font-size: 0.8vw; /* Reduce el tamaño de la fuente del calendario */
+  }
+  
+
+
+:host ::ng-deep .fc-header-toolbar{
+    font-size: clamp(1em, 2.5vw, 1.2em);
+    padding: 5px;
+    min-width: fit-content;
+    margin: 5px;
+}
+
+:host ::ng-deep .fc-toolbar-title{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: rgb(21, 21, 21);
+    font-size: clamp(1em, 2.5vw, 2em);
+    font-weight: bold;
+}
+
+:host ::ng-deep .fc-button-primary{
+    background-color: rgb(4, 4, 4) !important;
+    border-color: rgb(255, 255, 255);
+    cursor: pointer;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: clamp(0.9em, 2vw, 1.1em);
+}
+
+:host ::ng-deep .fc-button-primary :hover{
+    background-color: rgb(26,99,99);
+    color: white;
+
+}
+
+:host ::ng-deep .fc-view-harness{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-decoration: none;
+}
+
+
+:host ::ng-deep .fc .full-media-screen {
+    width: 100%;
+    height: 100px;
     color: rgb(26,99,99);
     min-width: fit-content;
-    background-color: rgb(228, 237, 246);
+    background-color:rgb(233,247,239);
     border-radius: 10px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+:host ::ng-deep .fc .fc-scrollgrid-section-header {
+    background-color: rgb(0, 0, 0);
+    color:white !important;
+    
+}
+
+:host ::ng-deep .fc-scrollgrid-sync-inner{
+    color: #ffffff; /* Cambia este color */
+}
+
+
+:host ::ng-deep .fc-daygrid-day-number {
+    color: rgb(0, 0, 0);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-decoration: none;
 }
 
 h2{
     color: rgb(26,99,99);
 }
+
+/* Media Queries para Responsividad */
+@media (max-width: 768px) {
+    .side-bar {
+      max-width: 100%;
+      border-right: none;
+    }
+  
+    .side-bar-main {
+      padding: 1em;
+    }
+  
+    .card {
+      width: 100%;
+      max-width: none;
+    }
+  
+    .container-app {
+      flex-direction: column;
+    }
+  
+    .fc-theme-standard {
+      font-size: 1em;
+    }
+  
+    .fc-button-primary {
+      font-size: 1em;
+    }
+  
+    .fc-toolbar-title {
+      font-size: 1.5em;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .side-bar {
+      padding: 1em;
+    }
+  
+    .side-bar-main {
+      padding: 1em;
+    }
+  
+    .card-container full-calendar {
+      font-size: 1vw;
+    }
+  
+    .fc-button-primary {
+      font-size: 1.2em;
+    }
+  
+    .fc-toolbar-title {
+      font-size: 1.8em;
+    }
+
+  }
+
+  @media (min-width: 1024px) and (max-width: 1366px) {
+    .container-app {
+      flex-direction: row; /* Asegura que el sidebar y el calendario estén uno al lado del otro */
+      justify-content: flex-start; /* Ajusta los elementos al principio del contenedor */
+    }
+    .side-bar {
+        width: 100%;
+        flex-shrink: 0; /* Evita que el sidebar se reduzca */
+        min-width: fit-content;
+      }
+    
+      .side-bar-main {
+        padding: 2em;
+        flex-grow: 1;
+        min-width: 0; /* Evita que se desborde el contenido */
+      }
+    
+      .card {
+        width: 100%;
+        max-width: 100%; /* El calendario y las tarjetas ocuparán todo el espacio disponible */
+        margin: 10px 0;
+      }
+    
+      .fc-theme-standard {
+        font-size: 1.1em;
+      }
+    
+      /* Calendario responsivo */
+      .fc {
+        font-size: 1em; /* Ajusta el tamaño del calendario para pantallas de tabletas */
+      }
+    
+      .fc-button-primary {
+        font-size: 1em;
+      }
+    
+      .fc-toolbar-title {
+        font-size: 2em;
+      }
+}
+
+  

@@ -28,7 +28,6 @@ export class PersonasComponent implements OnInit {
 
     this.personaServicio.getCrud().subscribe((data: Crud[]) => {
       this.listaCrud = data
-      console.log(this.listaCrud)
       this.loading = false;
     })
   }

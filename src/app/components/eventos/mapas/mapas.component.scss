@@ -2,7 +2,10 @@
     height: 50vh;
     width: 100%;
     position: relative;
+    min-width: fit-content;
+    z-index: -1;
 }
+
 
 #cards-container{
     overflow-y: auto;

@@ -1,0 +1,62 @@
+
+
+  .card{
+    min-width: fit-content;
+    padding: 20px;
+    width: 50px;
+  }
+
+  .carousel-item{
+    max-width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    margin-top: 100px;
+  }
+
+  .carousel-inner .carousel-item img{
+    object-fit: contain;
+    opacity: 0.6;
+    z-index: -1;
+    border-radius: 20px;
+  }
+
+  .carousel-inner{
+    display: flex;
+    height: 100%;
+    border-radius: 20px;
+  }
+  
+  a{
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    background-color: rgb(26,99,99);
+    height: 20px;
+    display: flex;
+    text-align: center;
+    margin-top: 300px;
+    z-index: 1;
+    font-family: "Space Grotesk", sans-serif;
+  }
+
+.carousel-caption{
+  min-width: fit-content;
+  padding: auto;
+  text-align: center;
+  margin-bottom: 40px;
+
+}
+
+ button {
+  background-color: rgb(26,99,99) !important;
+  border-color: rgb(26,99,99);
+  text-align: center;
+  width: 500px;
+  height: 100%;
+  font-size: 1.5em;
+  min-width: fit-content;
+  font-family: "Space Grotesk", sans-serif;
+}
+
+p{
+  font-family: "Space Grotesk", sans-serif;;
+}

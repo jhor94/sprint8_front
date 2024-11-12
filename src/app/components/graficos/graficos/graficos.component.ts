@@ -35,12 +35,12 @@ export class GraficosComponent implements AfterViewInit {
     })
   }
 
-  fieldChange(newField: 'ventas' | 'unidades_vendidas' | 'devoluciones'| 'ingresos_devoluciones'){
+  fieldChange(newField: 'ventas' | 'unidades_vendidas' | 'devoluciones'| 'ingresos_devoluciones'){ // cambiar modalidad para hacer graficos dinamicos
     this.field = newField
     this.ngAfterViewInit()
   }
 
-  getMonthSales(ventas: Venta[]){
+  getMonthSales(ventas: Venta[]){ // adapgtar array de meses con las ventas del back
     const salesByMonth = Array(12).fill(0)
     const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
 
@@ -57,7 +57,7 @@ export class GraficosComponent implements AfterViewInit {
   }
 
  
-
+//GRAFICO LINEAL
   lineChart(ventas:any[]) {
 
     if(this.chartLine){
@@ -98,7 +98,7 @@ export class GraficosComponent implements AfterViewInit {
       }
     })
   }
-
+//GRAFICO DE BARRAS
   barChart(ventas: any[]) {
 
     if(this.chartBar){

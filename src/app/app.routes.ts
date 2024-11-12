@@ -9,7 +9,6 @@ import { GraficosComponent } from './components/graficos/graficos/graficos.compo
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
-    {path: 'home', component: HomeComponent},
     {path: 'personas', component: PersonasComponent},
     {path: 'agregar', component: AgregarEditarComponent},
     {path: 'editar/:id', component: AgregarEditarComponent},

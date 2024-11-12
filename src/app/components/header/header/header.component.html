@@ -1,31 +1,16 @@
-<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">IT ACADEMY</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarColor02">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a class="nav-link active" [routerLink]="['home']">Home
-              <span class="visually-hidden">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" [routerLink]="['personas']">CRUD</a>
-        </li>
-          <li class="nav-item">
-            <a class="nav-link" [routerLink]="['mapa']">Mapas</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" [routerLink]="['grafico']">Gráficos</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" [routerLink]="['calendario']">Eventos</a>
-        </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  
+<nav class="navbar navbar-expand-lg" data-bs-theme="">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">IT ACADEMY</a>
+  </div>
+  <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02"
+    aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse justify-content-end" id="navbarColor02">
+    <a class="nav-link active" [routerLink]="['/']">Home</a>
+    <a class="nav-link" [routerLink]="['personas']">CRUD</a>
+    <a class="nav-link" [routerLink]="['mapa']">Mapas</a>
+    <a class="nav-link" [routerLink]="['grafico']">Gráficos</a>
+    <a class="nav-link" [routerLink]="['calendario']">Eventos</a>
+  </div>
+</nav>

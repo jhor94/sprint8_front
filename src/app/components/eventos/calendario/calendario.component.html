@@ -1,38 +1,44 @@
-<div class="container mt-3 text-center">
-  <div class="row mb-3">
-      <h1 class="text-center mb-3">{{title}}</h1>
-  </div>
-</div>
-<div class="container">
-  <div class="row">
-      <div class="col-md-12">
-          <p> Este calendario te permite gestionar tus eventos y reuniones de manera sencilla. Puedes agregar, editar o eliminar citas directamente en las fechas correspondientes, lo que te ayudará a organizar tu tiempo de forma eficiente. Además, podrás visualizar tus compromisos de manera clara y ordenada, asegurando que nunca pierdas una cita importante.</p>
+<div class="container-app">
+  <div class="side-bar">
+    <div class="row m-3 text-center">
+      <h1 class=" title text-center mb-3">{{title}}</h1>
+    </div>
+
+    <div class="row m-3">
+      <div class="col-md-12 justify-content-justify">
+        <p> Este calendario te permite gestionar tus eventos y reuniones de manera sencilla. Puedes agregar, editar o
+          eliminar citas directamente en las fechas correspondientes, lo que te ayudará a organizar tu tiempo de forma
+          eficiente. Además, podrás visualizar tus compromisos de manera clara y ordenada, asegurando que nunca pierdas
+          una cita importante.</p>
       </div>
+    </div>
   </div>
 
-<div class="calendar-container">
-  <full-calendar [options]="calendarOptions()" [events]="eventos"  [deepChangeDetection]="true"></full-calendar>
+  <div class="side-bar-main">
+    <div class="card card-calendar">
+      <full-calendar [options]="calendarOptions()" [events]="eventos" [deepChangeDetection]="true"></full-calendar>
+    </div>
+  </div>
+
 </div>
 
 
 <!-- Modal para opciones de evento -->
 <div class="modal fade" id="eventoModal" tabindex="-1" aria-labelledby="eventoModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="eventoModalLabel">Opciones de Evento</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <p>¿Qué te gustaría hacer con el evento "<span id="eventoTitulo"></span>"?</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" (click)="borrarEvento()">Eliminar</button>
-          <button type="button" class="btn btn-primary" (click)="actualizarEvento()">Actualizar</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        </div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="eventoModalLabel">Opciones de Evento</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>¿Qué te gustaría hacer con el evento "<span id="eventoTitulo"></span>"?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="borrarEvento()">Eliminar</button>
+        <button type="button" class="btn btn-primary" (click)="actualizarEvento()">Actualizar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
       </div>
     </div>
   </div>
-  
 </div>

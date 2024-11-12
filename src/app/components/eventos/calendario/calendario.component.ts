@@ -34,10 +34,12 @@ export class CalendarioComponent implements OnInit {
       timeGridPlugin,
       listPlugin
     ],
+    height:'auto',
     headerToolbar: {
       left: 'prev,next today',
       center: 'title',
-      right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+      right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
+      
     },
     initialView: 'dayGridMonth',
     weekends: true,
