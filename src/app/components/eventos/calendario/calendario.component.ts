@@ -10,7 +10,7 @@ import { CalendarioService } from '../../../services/calendarios/calendario.serv
 import { Eventos } from '../../../interfaces/eventos';
 
 //bootstrap
-import * as bootstrap from 'bootstrap'
+//import * as bootstrap from 'bootstrap'
 
 
 
@@ -119,8 +119,8 @@ export class CalendarioComponent implements OnInit {
   //evento ya creados
   handleEventClick(clickInfo: EventClickArg) {
     this.eventoSeleccionado = clickInfo
-    const modal = new bootstrap.Modal(document.getElementById('eventoModal')!);
-    modal.show()
+  //  const modal = new bootstrap.Modal(document.getElementById('eventoModal')!);
+   // modal.show()
     document.getElementById('eventoTitulo')!.innerHTML = clickInfo.event.title
   }
   // headel para borrar
@@ -136,7 +136,7 @@ export class CalendarioComponent implements OnInit {
         })
       }
     }
-    bootstrap.Modal.getInstance(document.getElementById('eventoModal')!)?.hide()
+   // bootstrap.Modal.getInstance(document.getElementById('eventoModal')!)?.hide()
   }
   //headel para actualizar
   actualizarEvento() {
@@ -161,7 +161,7 @@ export class CalendarioComponent implements OnInit {
         this.eventoSeleccionado!.event.setProp('description', newDescription);
         this.eventoSeleccionado = null
       })
-      bootstrap.Modal.getInstance(document.getElementById('eventoModal')!)?.hide()
+    //  bootstrap.Modal.getInstance(document.getElementById('eventoModal')!)?.hide()
 
     }
   }

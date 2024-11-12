@@ -8,6 +8,8 @@ h1{
     font-size: 3rem;
     font-weight: bold;
     min-width: fit-content;
+    font-family: "Space Grotesk", sans-serif;
+    color: rgb(26,99,99);
 }
 
 .card{
@@ -24,15 +26,19 @@ h1{
 h2{
     font-size: 2rem;
     font-weight: bold;
+    font-family: "Space Grotesk", sans-serif;
+    color: rgb(26,99,99);
 }
 
 .card-header h2{
     font-weight: bold;
+    font-family: "Space Grotesk", sans-serif;
 }
 
 .card-title {
     font-size: 1.5rem;
     margin-bottom: 1rem;
+    font-family: "Space Grotesk", sans-serif;
 }
 
 canvas{
@@ -44,6 +50,7 @@ canvas{
     min-width: fit-content;
     text-align: center;
     align-items: center;
+    font-family: "Space Grotesk", sans-serif;
 }
 
 .btn-primary{
@@ -54,4 +61,15 @@ canvas{
 .btn-info{
     background-color: black;
     color: white;
+    border-color: black;
+}
+
+.btn-secondary{
+    background-color: rgb(232, 255, 255);
+    color: rgb(0, 0, 0);
+    border-color: grey;
+}
+
+p{
+    font-family: "Space Grotesk", sans-serif;
 }

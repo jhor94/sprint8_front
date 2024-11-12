@@ -4,6 +4,7 @@
     position: relative;
     min-width: fit-content;
     z-index: -1;
+    font-family: "Space Grotesk", sans-serif;
 }
 
 
@@ -16,7 +17,12 @@
 }
 
 h3 , p {
-    color: rgb (26,99,99)
+    font-family: "Space Grotesk", sans-serif;
+}
+
+h1{
+    color: rgb(26,99,99);
+    font-family: "Space Grotesk", sans-serif;;
 }
 
 .card{
@@ -49,6 +55,8 @@ h3 , p {
 .card-title{
     position: relative;
     display: block;
-    font-size: 20px
+    font-size: 20px;
+    font-family: "Space Grotesk", sans-serif;
+    color: rgb(26,99,99);
 }
 

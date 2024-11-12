@@ -16,7 +16,7 @@
             </div>
             <div id="cards-container" class="col-md-4">
                 @for(localizacion of listaLocalizaciones; track localizacion.id){
-                <div class="card mb-3" (click)="centrarMapa(localizacion)" >
+                <div class="card mb-3" (click)="centrarMapa(localizacion)">
                     <div class="card-body"> 
                         <h3 class="card-title text-center">{{localizacion.nombre}}</h3>
                         <p class="card-text">{{localizacion.descripcion}}</p>

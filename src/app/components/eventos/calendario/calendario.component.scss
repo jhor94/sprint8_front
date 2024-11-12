@@ -5,16 +5,17 @@
     font-size: 14px;
     flex-wrap: wrap;
     min-width: fit-content;
+    z-index: -1;
   }
 
 .side-bar {
     max-width: 400px;
     width: 100%;
-    line-height: 1.5;
-    background: #eaf9ff;
-    border-right: 1px solid #d3e2e8;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    border-right: 1px solid rgb(26, 99, 99);
     text-align: justify;
+    color: rgb(26, 99, 99);
+    font-family: "Space Grotesk", sans-serif;
   }
 
 .title{
@@ -43,6 +44,7 @@
   
   .card-container full-calendar {
     font-size: 0.8vw; /* Reduce el tamaño de la fuente del calendario */
+    z-index: -1;
   }
   
 
@@ -55,15 +57,15 @@
 }
 
 :host ::ng-deep .fc-toolbar-title{
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    color: rgb(21, 21, 21);
+    font-family: "Space Grotesk", sans-serif;
+    color: rgb(26, 99, 99);
     font-size: clamp(1em, 2.5vw, 2em);
     font-weight: bold;
 }
 
 :host ::ng-deep .fc-button-primary{
-    background-color: rgb(4, 4, 4) !important;
-    border-color: rgb(255, 255, 255);
+    background-color: rgb(26, 99, 99) !important;
+    border-color: rgb(26, 99, 99);
     cursor: pointer;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: clamp(0.9em, 2vw, 1.1em);
@@ -89,6 +91,7 @@
     background-color:rgb(233,247,239);
     border-radius: 10px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    z-index: 0;
 }
 
 :host ::ng-deep .fc .fc-scrollgrid-section-header {
