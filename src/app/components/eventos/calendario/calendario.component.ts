@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, signal, TemplateRef, ViewChild } from '@angular/core';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarOptions, EventInput, DateSelectArg, EventClickArg, EventApi } from '@fullcalendar/core/index.js';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -10,7 +10,7 @@ import { CalendarioService } from '../../../services/calendarios/calendario.serv
 import { Eventos } from '../../../interfaces/eventos';
 
 //bootstrap
-//import * as bootstrap from 'bootstrap'
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap'
 
 
 
@@ -22,6 +22,7 @@ import { Eventos } from '../../../interfaces/eventos';
   styleUrl: './calendario.component.scss',
 })
 export class CalendarioComponent implements OnInit {
+  @ViewChild('eventoModal') eventoModal!: TemplateRef<any>
   title: string = 'Calendario de eventos';
 
   eventos: EventInput[] = []
@@ -53,7 +54,7 @@ export class CalendarioComponent implements OnInit {
 
   currentEvents = signal<EventApi[]>([])
 
-  constructor(private changeDetector: ChangeDetectorRef, private calendarioService: CalendarioService) { }
+  constructor(private changeDetector: ChangeDetectorRef, private calendarioService: CalendarioService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.loadEventos()
@@ -119,9 +120,7 @@ export class CalendarioComponent implements OnInit {
   //evento ya creados
   handleEventClick(clickInfo: EventClickArg) {
     this.eventoSeleccionado = clickInfo
-  //  const modal = new bootstrap.Modal(document.getElementById('eventoModal')!);
-   // modal.show()
-    document.getElementById('eventoTitulo')!.innerHTML = clickInfo.event.title
+    this.modalService.open(this.eventoModal, {ariaLabelledBy: 'eventoModalLabel'})
   }
   // headel para borrar
   borrarEvento() {
@@ -132,11 +131,11 @@ export class CalendarioComponent implements OnInit {
       if (confirm(`¿Seguro quiere eliminar el evento ${this.eventoSeleccionado?.event.title}`)) {
         this.calendarioService.deleteEvento(eventoId).subscribe(() => {
           this.eventoSeleccionado?.event.remove()
+          this.modalService.dismissAll();
           this.eventoSeleccionado = null
         })
       }
     }
-   // bootstrap.Modal.getInstance(document.getElementById('eventoModal')!)?.hide()
   }
   //headel para actualizar
   actualizarEvento() {
@@ -159,9 +158,9 @@ export class CalendarioComponent implements OnInit {
       this.calendarioService.updateEvento(UpdateEvent.id!, UpdateEvent).subscribe(() => {// paso el id por parametro y pongo !para evitar el null
         this.eventoSeleccionado!.event.setProp('title', newTitle);
         this.eventoSeleccionado!.event.setProp('description', newDescription);
+        this.modalService.dismissAll();
         this.eventoSeleccionado = null
       })
-    //  bootstrap.Modal.getInstance(document.getElementById('eventoModal')!)?.hide()
 
     }
   }

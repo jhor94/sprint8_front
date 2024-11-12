@@ -7,26 +7,47 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 align-items-justify">
-                <p>"Explora y descubre los principales puntos de interés de Barcelona con nuestra app interactiva. Desde parques y hospitales hasta centros comerciales, esta herramienta te permite ubicar fácilmente lugares clave en el mapa. Clica sobre el el lugar de tu interés y el mapa te enseñará donde es</p>
+                <p>"Explora y descubre los principales puntos de interés de Barcelona con nuestra app interactiva. Desde
+                    parques y hospitales hasta centros comerciales, esta herramienta te permite ubicar fácilmente
+                    lugares clave en el mapa. Clica sobre el el lugar de tu interés y el mapa te enseñará donde es</p>
             </div>
         </div>
+
+        <div id="checkbox-container" class="card-mapa">
+            <label>
+                <input type="checkbox" (change)="cambioCategoria($event, 'Centro Comercial')" [checked]="isCategoriaChecked('Centro Comercial')" class="m-3"/>
+                Centros Comerciales
+            </label>
+            <br>
+            <label>
+                <input type="checkbox" (change)="cambioCategoria($event, 'Hospital')" [checked]="isCategoriaChecked('Hospital')" class="m-3" />
+                Hospitales
+            </label>
+            <br>
+            <label>
+                <input type="checkbox" (change)="cambioCategoria($event, 'Parque')"[checked]="isCategoriaChecked('Parque')" class="m-3" />
+                Parques
+            </label>
+            <br>
+        </div>
+
         <div class="row">
             <div class="col-md-8 mapa">
+                
                 <div id="map"></div>
             </div>
             <div id="cards-container" class="col-md-4">
-                @for(localizacion of listaLocalizaciones; track localizacion.id){
+                @for(localizacion of localizacionesFiltradas; track localizacion.id){
                 <div class="card mb-3" (click)="centrarMapa(localizacion)">
-                    <div class="card-body"> 
+                    <div class="card-body">
                         <h3 class="card-title text-center">{{localizacion.nombre}}</h3>
                         <p class="card-text">{{localizacion.descripcion}}</p>
                     </div>
                 </div>
-            }
+                }
             </div>
             <div>
-                
-            </div>  
+            </div>
         </div>
     </div>
 </div>

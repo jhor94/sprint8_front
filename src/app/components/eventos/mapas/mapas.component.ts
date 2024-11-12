@@ -14,15 +14,20 @@ export class MapasComponent implements OnInit, AfterViewInit {
 
   localizacionServicio = inject(LocalizacionService)
   listaLocalizaciones: Localizaciones[] = []
-  map: any
+  localizacionesFiltradas: Localizaciones[] = []
+  categorias: string[] = []
+  selectedCategorias:string[]=[]
+  map: any;
+  markers: L.Marker[] = []
 
   ngOnInit(): void {
-    this.getListaLocalizaciones()
+    this.getListaLocalizaciones();
 
   }
 
   ngAfterViewInit(): void {
     this.configMap()
+
   }
 
   configMap() {
@@ -44,31 +49,60 @@ export class MapasComponent implements OnInit, AfterViewInit {
     });
   }
 
+  cargarMarcadores(listaLocalizacionesMarcador:Localizaciones[]){
+    this.markers.forEach(marker => this.map.removeLayer(marker));
+    this.markers = []
+
+    listaLocalizacionesMarcador.forEach(localizacion =>{
+      const marker = L.marker([localizacion.latitud,localizacion.longitud],{
+        icon: L.icon({
+          iconUrl: 'assets/placeholder.png',
+          iconSize: [32, 32],
+          iconAnchor: [16, 32],
+          popupAnchor: [0, -32]
+        })
+      }
+    ).addTo(this.map);
+    marker.bindPopup( `<b><h3>${localizacion.nombre}</h3></b>
+          <b><p>${localizacion.descripcion}</p></b>`).openPopup
+  this.markers.push(marker)
+  });
+}
+
   getListaLocalizaciones() {
     this.localizacionServicio.getLocalizaciones().subscribe((data: Localizaciones[]) => {
       this.listaLocalizaciones = data
+      this.localizacionesFiltradas=data
       console.log(this.listaLocalizaciones)
-
-
-      this.listaLocalizaciones.forEach(localizacion => {
-        const marker = L.marker(
-          [localizacion.latitud, localizacion.longitud],
-          {
-            icon: L.icon({
-              iconUrl: 'assets/placeholder.png',
-              iconSize: [32, 32],
-              iconAnchor: [16, 32],
-              popupAnchor: [0, -32]
-            })
-          }
-        ).addTo(this.map)
-        marker.bindPopup(
-          `<b><h3>${localizacion.nombre}</h3></b>
-          <b><p>${localizacion.descripcion}</p></b>`)
-      })
+      
+      this.cargarMarcadores(this.listaLocalizaciones)
     })
   }
 
+cambioCategoria(event:any, categoria:string){
+
+  if(event.target.checked){
+    this.selectedCategorias.push(categoria);
+  }else{
+    this.selectedCategorias = this.selectedCategorias.filter(res => res !== categoria);
+  }
+  this.filtrarPorCategoria();
+}
+
+
+filtrarPorCategoria(){
+  if(this.selectedCategorias.length === 0){
+    this.localizacionesFiltradas = [...this.listaLocalizaciones]
+    console.log(this.localizacionesFiltradas)
+  }else {
+    this.localizacionesFiltradas = this.listaLocalizaciones.filter(localizacion => this.selectedCategorias.includes(localizacion.categoria))
+  };
+  this.cargarMarcadores(this.localizacionesFiltradas);
+  }
+
+  isCategoriaChecked(categoria:string): boolean{
+    return this.selectedCategorias.includes(categoria)
+  }
 
   centrarMapa(localizacion: Localizaciones){
     this.map.setView([localizacion.latitud,localizacion.longitud],14)

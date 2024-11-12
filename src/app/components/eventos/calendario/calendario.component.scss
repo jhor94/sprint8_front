@@ -47,6 +47,15 @@
     z-index: -1;
   }
   
+.modal-content .btn-primary{
+  background-color: rgb(26, 99, 99);
+  color: white;
+}
+
+.modal-content .btn-secondary{
+  background-color: rgb(0, 0, 0);
+  color: white;
+}
 
 
 :host ::ng-deep .fc-header-toolbar{
@@ -171,7 +180,7 @@ h2{
 
   }
 
-  @media (min-width: 1024px) and (max-width: 1366px) {
+  @media (min-width: 800px) and (max-width: 1366px) {
     .container-app {
       flex-direction: row; /* Asegura que el sidebar y el calendario estén uno al lado del otro */
       justify-content: flex-start; /* Ajusta los elementos al principio del contenedor */
