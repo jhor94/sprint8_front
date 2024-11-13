@@ -42,7 +42,7 @@ personas.model.ts: Modelo para los datos de las personas (correspondiente al CRU
 
 bash
 Copiar código
-git clone https://github.com/tu-usuario/tu-repositorio-frontend.git
+git clone  https://github.com/jhor94/sprint8_front 
 
 - Instala las dependencias:
 
