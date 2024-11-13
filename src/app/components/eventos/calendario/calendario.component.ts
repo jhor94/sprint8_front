@@ -11,19 +11,25 @@ import { Eventos } from '../../../interfaces/eventos';
 
 //bootstrap
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap'
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 
 
 @Component({
   selector: 'app-calendario',
   standalone: true,
-  imports: [FullCalendarModule, CommonModule],
+  imports: [FullCalendarModule, CommonModule, ReactiveFormsModule],
   templateUrl: './calendario.component.html',
   styleUrl: './calendario.component.scss',
 })
 export class CalendarioComponent implements OnInit {
   @ViewChild('eventoModal') eventoModal!: TemplateRef<any>
+  @ViewChild('confirmacionModal') confirmacionModal!: TemplateRef<any> 
   title: string = 'Calendario de eventos';
+  formModal: FormGroup = new FormGroup({})
+  editado:boolean = false
+  selectedEventId : number | null = null
 
   eventos: EventInput[] = []
 
@@ -54,10 +60,23 @@ export class CalendarioComponent implements OnInit {
 
   currentEvents = signal<EventApi[]>([])
 
-  constructor(private changeDetector: ChangeDetectorRef, private calendarioService: CalendarioService, private modalService: NgbModal) { }
+  constructor(private changeDetector: ChangeDetectorRef, private calendarioService: CalendarioService, private modalService: NgbModal, private form: FormBuilder, private toastr: ToastrService) {
+   
+   }
 
   ngOnInit(): void {
     this.loadEventos()
+    this.formularioEventos()
+  }
+
+  formularioEventos(){
+    this.formModal = this.form.group({
+      titulo: ['', Validators.required],
+      inicio: ['',  Validators.required],
+      fin: ['',  Validators.required],
+      descripcion: ['', Validators.required],
+      color:['']
+    })
   }
 
   //actualizar todos los eventos del calendario
@@ -68,8 +87,10 @@ export class CalendarioComponent implements OnInit {
         title: evento.titulo,
         start: evento.inicio,
         end: evento.fin,
-        description: evento.descripcion,
-
+        extendedProps:{
+          description: evento.descripcion ?? '',
+        },
+        color: evento.color
       }));
       this.calendarOptions.update(options => ({
         ...options,
@@ -82,86 +103,84 @@ export class CalendarioComponent implements OnInit {
     this.calendarVisible.update((bool) => !bool);
   }
 
-  //headel para crear
+  //headel para crear dentro del calendario
   handleDateClick(selectInfo: DateSelectArg) {
-    const title = prompt('Introduce el titulo del evento');
-    const description = prompt('Introduce una pequeña descripcion del evento') ?? ''; //asigna campo vacio en el caso que sea nulo
-    const finEventStr = prompt('Introduce la fecha de finalizacion en formado (yyy-mm-dd)') ?? ''; //asigna campo vacio en el caso que sea nulo
-    const finEvent = new Date(finEventStr)
-    const calendarApi = selectInfo.view.calendar
-    calendarApi.unselect();
-
-    if (title) {
-      const nuevoEvento: Eventos = {
-        titulo: title,
-        inicio: new Date(selectInfo.startStr),
-        fin: finEvent,
-        descripcion: description,
-        creado_en: new Date(),
-        actualizado_en: new Date()
-      };
-      this.calendarioService.guardarEvento(nuevoEvento).subscribe((evento) => {
-        this.loadEventos()
-        calendarApi.addEvent({
-          id: evento.id?.toString(),
-          title: evento.titulo,
-          start: evento.inicio,
-          end: evento.fin,
-          description: evento.descripcion,
-        })
-      })
-
-    }
-
+    this.editado = false
+    this.selectedEventId = null
+    this.formModal.reset()
+    this.formModal.patchValue({
+      inicio: selectInfo.startStr,
+      fin:selectInfo.endStr
+    });
+    this.modalService.open(this.eventoModal, {ariaLabelledBy: 'eventoModalLabel'})
   }
 
   eventoSeleccionado: EventClickArg | null = null
 
   //evento ya creados
   handleEventClick(clickInfo: EventClickArg) {
-    this.eventoSeleccionado = clickInfo
+    this.editado = true;
+    this.selectedEventId = Number(clickInfo.event.id);
+    this.formModal.patchValue({
+      titulo: clickInfo.event.title,
+      inicio: clickInfo.event.start,
+      fin: clickInfo.event.end,
+      descripcion: clickInfo.event.extendedProps['description'],
+    })
     this.modalService.open(this.eventoModal, {ariaLabelledBy: 'eventoModalLabel'})
   }
-  // headel para borrar
-  borrarEvento() {
 
-    const eventoId = Number(this.eventoSeleccionado?.event.id)
 
-    if (eventoId) {
-      if (confirm(`¿Seguro quiere eliminar el evento ${this.eventoSeleccionado?.event.title}`)) {
-        this.calendarioService.deleteEvento(eventoId).subscribe(() => {
-          this.eventoSeleccionado?.event.remove()
-          this.modalService.dismissAll();
-          this.eventoSeleccionado = null
+  generarEvento(){
+
+    if(this.formModal.valid){
+      const colorEvento = this.formModal.value.color || '##1a6363'
+      const nuevoEvento: Eventos = {
+        id: this.editado ? this.selectedEventId! : undefined,
+        titulo:this.formModal.value.titulo,
+        inicio: new Date (this.formModal.value.inicio),
+        fin: new Date(this.formModal.value.fin),
+        descripcion:this.formModal.value.descripcion,
+        color: colorEvento,
+        creado_en:new Date(),
+        actualizado_en:new Date(),
+      }
+
+      if(this.editado) {
+        this.calendarioService.updateEvento(nuevoEvento.id!, nuevoEvento).subscribe(()=>{
+          this.loadEventos()
+          this.modalService.dismissAll()
+          this.toastr.info('El evento fué actualizado con exito', 'Evento actualizado')
         })
-      }
-    }
-  }
-  //headel para actualizar
-  actualizarEvento() {
-    if (this.eventoSeleccionado) {
-      const newTitle = prompt('Actualiza el titulo del evento', this.eventoSeleccionado?.event.title) ?? this.eventoSeleccionado?.event.title
-      const newDescription = prompt('Actualizac la descripción', this.eventoSeleccionado?.event.extendedProps['description']) ?? this.eventoSeleccionado?.event.extendedProps['description']
-
-      const originalCreationDate = this.eventoSeleccionado?.event.extendedProps['creado_en'] || this.eventoSeleccionado?.event.start;
-
-      const UpdateEvent: Eventos = {
-        id: Number(this.eventoSeleccionado.event.id),
-        titulo: newTitle,
-        inicio: this.eventoSeleccionado.event.start!,
-        fin: this.eventoSeleccionado.event.end!,
-        descripcion: newDescription,
-        creado_en: originalCreationDate,
-        actualizado_en: new Date()
-      }
-
-      this.calendarioService.updateEvento(UpdateEvent.id!, UpdateEvent).subscribe(() => {// paso el id por parametro y pongo !para evitar el null
-        this.eventoSeleccionado!.event.setProp('title', newTitle);
-        this.eventoSeleccionado!.event.setProp('description', newDescription);
-        this.modalService.dismissAll();
-        this.eventoSeleccionado = null
+      }else{
+        this.calendarioService.guardarEvento(nuevoEvento).subscribe(()=>{
+        this.loadEventos()
+        this.modalService.dismissAll()
+        this.toastr.success('El evento fué creado con exito', 'Evento creado')
       })
+    }
 
+      
+  }
+}
+// headel para borrar
+
+
+abrirconfirmacion(){
+  const modalDelete = this.modalService.open(this.confirmacionModal,{ariaLabelledBy: 'confirmacionModalLabel'})
+
+  modalDelete.result.finally(()=>{
+      this.borrarEvento()
+  })
+}
+  borrarEvento() {
+    if (this.selectedEventId) {
+        this.calendarioService.deleteEvento(this.selectedEventId).subscribe(() => {
+          this.eventoSeleccionado?.event.remove()
+          this.loadEventos()
+          this.modalService.dismissAll();
+          this.toastr.warning('El evento fué eliminado con exito', 'Evento eliminado')
+      })
     }
   }
 }
