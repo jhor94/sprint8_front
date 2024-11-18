@@ -1,11 +1,13 @@
+import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
+import { RouterModule } from '@angular/router';
 declare let bootstrap:any
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [RouterModule, CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
