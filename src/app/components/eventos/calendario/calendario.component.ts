@@ -13,6 +13,7 @@ import { Eventos } from '../../../interfaces/eventos';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap'
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { Colors } from 'chart.js';
 
 
 
@@ -123,9 +124,10 @@ export class CalendarioComponent implements OnInit {
     this.selectedEventId = Number(clickInfo.event.id);
     this.formModal.patchValue({
       titulo: clickInfo.event.title,
-      inicio: clickInfo.event.start,
-      fin: clickInfo.event.end,
+      inicio: clickInfo.event.start?.toISOString().split('T')[0] || '',
+      fin: clickInfo.event.end?.toISOString().split('T')[0] || '',
       descripcion: clickInfo.event.extendedProps['description'],
+      color: clickInfo.event.backgroundColor || '#1a6363'
     })
     this.modalService.open(this.eventoModal, {ariaLabelledBy: 'eventoModalLabel'})
   }
